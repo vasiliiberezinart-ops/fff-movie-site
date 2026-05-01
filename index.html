@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FFF-Movie — кинотеатр Films Freedom Friends</title>
+<meta name="description" content="Кинотеатр для фильмов, в которых играют иноагенты и запрещённые. Билет 5 €, доступ 48 часов." />
+<meta property="og:title" content="FFF-Movie · кинотеатр Films Freedom Friends" />
+<meta property="og:description" content="Иноагенты. Запрещённые. Свобода. Билет 5 €, доступ 48 часов." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/posters/hero-still.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body class="home">
+
+<div class="leader" id="leader" aria-hidden="true">
+  <div class="leader-stage clapper-stage">
+    <svg class="clapper" viewBox="0 0 320 240" fill="none" stroke="#f4ede3" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+      <!-- bottom board -->
+      <rect class="clapper-board" x="20" y="90" width="280" height="130" rx="2"/>
+      <line class="clapper-line" x1="20"  y1="130" x2="300" y2="130"/>
+      <line class="clapper-line" x1="20"  y1="170" x2="300" y2="170"/>
+      <text class="clapper-text" x="36" y="122" font-family="EB Garamond, serif" font-size="22" fill="#f4ede3" stroke="none">FFF · MOVIE</text>
+      <text class="clapper-text" x="36" y="160" font-family="Inter, sans-serif" font-size="13" fill="#f4ede3" stroke="none" letter-spacing="2">TAKE 01</text>
+      <text class="clapper-text" x="36" y="200" font-family="Inter, sans-serif" font-size="13" fill="#f4ede3" stroke="none" letter-spacing="2">ROLL 2026</text>
+      <!-- top stick (clapper) — rotates around its hinge -->
+      <g class="clapper-top">
+        <rect x="20" y="40" width="280" height="44" rx="2"/>
+        <!-- diagonal stripes -->
+        <line x1="40"  y1="40" x2="20"  y2="84"/>
+        <line x1="80"  y1="40" x2="40"  y2="84"/>
+        <line x1="120" y1="40" x2="80"  y2="84"/>
+        <line x1="160" y1="40" x2="120" y2="84"/>
+        <line x1="200" y1="40" x2="160" y2="84"/>
+        <line x1="240" y1="40" x2="200" y2="84"/>
+        <line x1="280" y1="40" x2="240" y2="84"/>
+        <line x1="300" y1="40" x2="280" y2="84"/>
+      </g>
+    </svg>
+    <div class="leader-flash" id="leaderFlash"></div>
+  </div>
+</div>
+
+<header class="nav">
+  <a href="/" class="brand">
+    <span class="brand-mark">●</span>
+    <span class="brand-name" data-platform-name>FFF-Movie</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#films">Фильмы</a>
+    <a href="#about">О&nbsp;площадке</a>
+  </nav>
+</header>
+
+<section class="hero hero-cinema">
+  <video class="hero-video" autoplay muted loop playsinline poster="assets/posters/hero-still.jpg">
+    <source src="assets/raw/hero-trailer.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">кинотеатр</p>
+    <h1 class="hero-title">Иноагенты. Запрещённые. Свобода.</h1>
+    <a href="#films" class="cta cta-ghost">в зал</a>
+  </div>
+</section>
+
+<section id="films" class="films">
+  <div class="films-grid">
+
+    <article class="film-card">
+      <a href="#teaser-igt" class="film-poster">
+        <video class="film-poster-video" muted loop playsinline preload="metadata" poster="assets/posters/igt.jpg">
+          <source src="assets/raw/igt-teaser.mp4" type="video/mp4" />
+        </video>
+        <img class="film-poster-img" src="assets/posters/igt.jpg" alt="INSERTGENERICTITLE — постер" />
+        <div class="film-card-overlay">
+          <span class="film-card-action">смотреть тизер</span>
+        </div>
+        <span class="film-ticket">билет 5 € · 48 ч</span>
+      </a>
+      <div class="film-meta">
+        <h2 class="film-title">INSERTGENERICTITLE</h2>
+        <p class="film-credits-row"><span class="role">режиссёр</span> Nick Sherlock</p>
+        <p class="film-credits-row"><span class="role">продакшн</span> Films Freedom Friends</p>
+        <p class="film-credits-row"><span class="role">в&nbsp;ролях</span> John Malkovich · Владимир Раевский</p>
+      </div>
+    </article>
+
+    <article class="film-card">
+      <a href="#teaser-seven" class="film-poster">
+        <video class="film-poster-video" muted loop playsinline preload="metadata" poster="assets/posters/seven.jpg">
+          <source src="assets/raw/seven-teaser.mp4" type="video/mp4" />
+        </video>
+        <img class="film-poster-img" src="assets/posters/seven.jpg" alt="The Seven — постер" />
+        <div class="film-card-overlay">
+          <span class="film-card-action">смотреть тизер</span>
+        </div>
+        <span class="film-ticket">билет 5 € · 48 ч</span>
+      </a>
+      <div class="film-meta">
+        <h2 class="film-title">The Seven</h2>
+        <p class="film-credits-row"><span class="role">режиссёр</span> Дима Масейкин</p>
+        <p class="film-credits-row"><span class="role">продакшн</span> Films Freedom Friends</p>
+        <p class="film-credits-row"><span class="role">в&nbsp;ролях</span> Олег Ягодин · Никита Кукушкин</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="teaser teaser-cinema" id="teaser-igt">
+  <video class="teaser-video" muted playsinline preload="metadata" poster="assets/posters/igt-hero.jpg" data-teaser-video>
+    <source src="assets/raw/igt-teaser.mp4" type="video/mp4" />
+  </video>
+  <div class="teaser-overlay"></div>
+  <div class="teaser-content">
+    <p class="teaser-eyebrow">тизер · 30 сек</p>
+    <h2 class="teaser-title">INSERTGENERICTITLE</h2>
+    <p class="teaser-credits">Nick Sherlock · John Malkovich · Владимир Раевский</p>
+    <a href="films/insertgenerictitle.html" class="cta cta-primary">купить билет — 5 €</a>
+  </div>
+</section>
+
+<section class="teaser teaser-cinema" id="teaser-seven">
+  <video class="teaser-video" muted playsinline preload="metadata" poster="assets/posters/seven-hero.jpg" data-teaser-video>
+    <source src="assets/raw/seven-teaser.mp4" type="video/mp4" />
+  </video>
+  <div class="teaser-overlay"></div>
+  <div class="teaser-content">
+    <p class="teaser-eyebrow">тизер</p>
+    <h2 class="teaser-title">The Seven</h2>
+    <p class="teaser-credits">Дима Масейкин · Олег Ягодин · Никита Кукушкин</p>
+    <a href="films/seven.html" class="cta cta-primary">купить билет — 5 €</a>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="about-inner">
+    <p class="about-text">
+      Кинотеатр для фильмов, в которых играют иноагенты и&nbsp;запрещённые.
+      Билет действует 48&nbsp;часов с момента открытия.
+    </p>
+
+    <div class="about-studio">
+      <p class="studio-label">студия</p>
+      <img class="studio-logo" src="assets/brand/films-freedom-friends-small.png" alt="Films Freedom Friends" />
+      <p class="studio-people">Дима Масейкин — режиссёр студии</p>
+      <p class="studio-blurb">
+        <!-- TODO: 1-2 строки от Васи о студии -->
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <p>© <span data-platform-name>FFF-Movie</span> · 2026</p>
+  <p class="foot-links">
+    <a href="help/">Help</a> ·
+    <a href="mailto:vasiliyberezin.art@gmail.com">vasiliyberezin.art@gmail.com</a>
+  </p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
