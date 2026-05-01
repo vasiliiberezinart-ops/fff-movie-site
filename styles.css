@@ -76,6 +76,42 @@ html {
 }
 .foot { scroll-snap-align: end; }
 
+/* ---------- cube-scroll: each section flips like the face of a cube ----------
+   On supported browsers (Safari 26+, Chrome 115+) we use animation-timeline: view().
+   Older browsers get a JS fallback in script.js that writes inline transform.
+*/
+.hero, .films, .teaser, .about, .help, .not-found, .success, .detail {
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+}
+@supports (animation-timeline: view()) {
+  .hero, .films, .teaser, .about, .help, .not-found, .success, .detail {
+    animation: cube-flip linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+  }
+  @keyframes cube-flip {
+    0%   { transform: perspective(1400px) rotateX(58deg) translateZ(-280px); opacity: 0.35; filter: blur(2px); }
+    35%  { transform: perspective(1400px) rotateX(0)     translateZ(0);      opacity: 1;    filter: blur(0); }
+    65%  { transform: perspective(1400px) rotateX(0)     translateZ(0);      opacity: 1;    filter: blur(0); }
+    100% { transform: perspective(1400px) rotateX(-58deg) translateZ(-280px); opacity: 0.35; filter: blur(2px); }
+  }
+  @media (max-width: 700px) {
+    @keyframes cube-flip {
+      0%   { transform: perspective(1100px) rotateX(38deg) translateZ(-160px); opacity: 0.5; filter: blur(1px); }
+      35%  { transform: perspective(1100px) rotateX(0)     translateZ(0);      opacity: 1;   filter: blur(0); }
+      65%  { transform: perspective(1100px) rotateX(0)     translateZ(0);      opacity: 1;   filter: blur(0); }
+      100% { transform: perspective(1100px) rotateX(-38deg) translateZ(-160px); opacity: 0.5; filter: blur(1px); }
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero, .films, .teaser, .about, .help, .not-found, .success, .detail {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
 /* horizontal sprocket strip between frames — a thin film-edge line */
 .hero, .films, .about, .help, .not-found, .success, .detail {
   position: relative;
@@ -160,6 +196,33 @@ a { color: inherit; text-decoration: none; }
   position: absolute; inset: 0;
   background:
     linear-gradient(180deg, rgba(10, 10, 10, 0.5) 0%, rgba(10, 10, 10, 0.1) 35%, rgba(10, 10, 10, 0.95) 100%);
+  z-index: 1;
+}
+
+/* prismatic gradient-mesh — soft pulsating warm-cool blobs floating over the hero */
+.hero-mesh {
+  position: absolute; inset: -10%;
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(80px) saturate(1.1);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  background:
+    radial-gradient(circle at 22% 28%, rgba(255, 110, 180, 0.55) 0%, transparent 45%),
+    radial-gradient(circle at 78% 18%, rgba(110, 200, 255, 0.55) 0%, transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(255, 200, 110, 0.55) 0%, transparent 45%),
+    radial-gradient(circle at 12% 90%, rgba(190, 130, 255, 0.55) 0%, transparent 45%);
+  animation: hero-mesh-pulse 14s ease-in-out infinite;
+}
+@keyframes hero-mesh-pulse {
+  0%, 100% { transform: scale(1)   rotate(0)   translate(0, 0); opacity: 0.55; }
+  50%      { transform: scale(1.18) rotate(12deg) translate(-2%, 1%); opacity: 0.7; }
+}
+@media (max-width: 700px) {
+  .hero-mesh { filter: blur(50px) saturate(1.05); opacity: 0.45; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-mesh { animation: none; }
 }
 
 .hero-content {
@@ -200,6 +263,7 @@ a { color: inherit; text-decoration: none; }
    color: subtle warm-palette hue-shift per letter (tan / bone / peach)
 */
 .hero-title .ch {
+  position: relative;
   display: inline-block;
   opacity: 0;
   transform: translateY(0.6em) rotate(-6deg);
@@ -211,6 +275,29 @@ a { color: inherit; text-decoration: none; }
     calc(var(--i) * 55ms),
     calc(2.6s + var(--i) * 38ms);
   will-change: transform, opacity, filter;
+}
+/* chromatic aberration — RGB ghosts that follow the cursor / scroll */
+.hero-title .ch::before,
+.hero-title .ch::after {
+  content: attr(data-ch);
+  position: absolute;
+  top: 0; left: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.65;
+  transition: transform 0.18s ease-out;
+}
+.hero-title .ch::before {
+  color: rgba(255, 70, 140, 0.85);
+  transform: translate(calc(var(--ax, 0) * -3.5px), calc(var(--ay, 0) * -2.5px));
+}
+.hero-title .ch::after {
+  color: rgba(80, 200, 255, 0.85);
+  transform: translate(calc(var(--ax, 0) * 3.5px), calc(var(--ay, 0) * 2.5px));
+}
+@media (max-width: 700px) {
+  .hero-title .ch::before { transform: translate(calc(var(--ax, 0) * -2.2px), calc(var(--ay, 0) * -1.5px)); }
+  .hero-title .ch::after  { transform: translate(calc(var(--ax, 0) * 2.2px),  calc(var(--ay, 0) * 1.5px)); }
 }
 .home .hero-title .ch {
   animation-delay:
@@ -360,14 +447,16 @@ a { color: inherit; text-decoration: none; }
 }
 
 .film-card {
-  /* polaroid look — pinned to a wall */
+  /* polaroid look — pinned to a wall, with cursor/gyro 3D-tilt */
   position: relative;
   display: flex; flex-direction: column; gap: 0;
   background: #f4ede3;
   padding: 1rem 1rem 3.5rem;
   border-radius: 2px;
-  transform: rotate(var(--tilt, -1.4deg)) translateZ(0);
-  transition: transform 0.5s cubic-bezier(.2,.7,.2,1), box-shadow 0.5s ease;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: rotate(var(--tilt, -1.4deg)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(0);
+  transition: transform 0.35s cubic-bezier(.2,.7,.2,1), box-shadow 0.5s ease;
   box-shadow:
     0 20px 35px -18px rgba(0, 0, 0, 0.7),
     0 50px 90px -50px rgba(0, 0, 0, 0.55);
@@ -376,10 +465,34 @@ a { color: inherit; text-decoration: none; }
 .film-card:nth-child(odd)  { --tilt: -1.6deg; }
 .film-card:nth-child(even) { --tilt:  1.8deg; }
 .film-card:hover {
-  transform: rotate(0) translateZ(40px) translateY(-6px);
+  transform: rotate(0) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(40px) translateY(-6px);
   box-shadow:
     0 40px 60px -20px rgba(0, 0, 0, 0.85),
     0 80px 130px -60px rgba(0, 0, 0, 0.7);
+}
+
+/* shimmer sweep — runs once when card scrolls into view */
+.film-card .shimmer {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.55) 50%, transparent 62%);
+  background-size: 220% 100%;
+  background-position: -120% 0;
+  mix-blend-mode: overlay;
+  opacity: 0;
+  border-radius: 2px;
+}
+.film-card.shimmer-fire .shimmer {
+  animation: shimmer-sweep 1.4s ease-out forwards;
+}
+@keyframes shimmer-sweep {
+  0%   { opacity: 0;   background-position: -120% 0; }
+  20%  { opacity: 0.9; }
+  100% { opacity: 0;   background-position: 120% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .film-card { transition: none; }
+  .film-card .shimmer { display: none; }
 }
 
 /* push-pin */
@@ -750,6 +863,94 @@ a { color: inherit; text-decoration: none; }
   color: var(--white-mute);
   margin-bottom: 1.2rem;
   font-size: 1rem;
+}
+
+/* ============================================================
+   Mobile polish (≤ 700px)
+   ============================================================ */
+@media (max-width: 700px) {
+  /* iOS safe-area: notch + home-indicator */
+  body { padding-bottom: env(safe-area-inset-bottom); }
+  .nav { padding-top: max(1rem, env(safe-area-inset-top)); padding-left: 1.2rem; padding-right: 1.2rem; }
+  .frame-counter { left: 1.2rem; bottom: max(1rem, env(safe-area-inset-bottom)); }
+
+  /* prevent iOS auto-zoom of long words / address bar fudging */
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+  /* prefer dvh (the current visible height) where available */
+  .hero { height: 100dvh; min-height: 100dvh; }
+  .films, .about, .help, .not-found, .success, .detail, .teaser {
+    min-height: 100dvh;
+  }
+
+  /* tap targets ≥ 44 px */
+  .cta, .cta-primary, .cta-ghost,
+  .pay-stripe, .pay-paypal, .pay-ru,
+  .nav-links a, .foot-links a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+  }
+
+  /* mobile typography tighten */
+  .hero-eyebrow { font-size: 0.66rem; }
+  .hero-title { padding: 0 0.2rem; }
+  .teaser-content { padding: 0 1.4rem; }
+  .teaser-title { font-size: clamp(2rem, 8vw, 3.4rem); }
+  .teaser-credits { font-size: 0.78rem; line-height: 1.4; }
+  .nav-links { gap: 0.9rem; font-size: 0.66rem; }
+  .brand { font-size: 1.05rem; letter-spacing: 0.16em; }
+
+  /* about — single-column, breathing room */
+  .about-inner { gap: 2.4rem; }
+  .about-text { font-size: 1.15rem; line-height: 1.45; }
+  .studio-logo { max-width: 200px; }
+
+  /* polaroid postcards: less aggressive shadow, no overflow */
+  .film-card {
+    padding: 0.8rem 0.8rem 2.6rem;
+    box-shadow:
+      0 14px 24px -14px rgba(0, 0, 0, 0.75),
+      0 30px 50px -36px rgba(0, 0, 0, 0.55);
+  }
+  .film-card:nth-child(odd)  { --tilt: -1.0deg; }
+  .film-card:nth-child(even) { --tilt:  1.2deg; }
+
+  /* detail page: tighten */
+  .detail-hero { height: 56vh; min-height: 360px; }
+  .detail-body { padding: 0 1.2rem 4rem; margin-top: -4rem; }
+  .detail-buy { padding: 1.4rem; }
+
+  /* help blocks: touchable spacing */
+  .help-block { padding: 1.4rem 0; }
+  .help-block p { font-size: 0.96rem; line-height: 1.6; }
+
+  /* pulses / mesh: keep but lighter */
+  .hero-mesh { animation-duration: 18s; }
+
+  /* gentler grain on mobile */
+  body::after { opacity: 0.09; }
+  html::after { opacity: 0.05; }
+}
+
+/* tiny phones — 360 px and below */
+@media (max-width: 380px) {
+  .nav { padding: 0.8rem 1rem; }
+  .nav-links a { font-size: 0.6rem; letter-spacing: 0.16em; }
+  .brand { font-size: 0.95rem; }
+  .hero-title { font-size: clamp(1.4rem, 7vw, 2rem); }
+  .teaser-title { font-size: clamp(1.7rem, 8vw, 2.4rem); }
+  .film-credits-row .role { min-width: 4.6rem; font-size: 0.58rem; }
+}
+
+/* hover-only effects → disable on touch */
+@media (hover: none) {
+  .film-poster:hover .film-poster-img { transform: none; filter: saturate(0.9); }
+  .film-poster:hover .film-poster-video { opacity: 0; }
+  .film-poster:hover .film-card-overlay { opacity: 0; }
+  .film-card:hover { transform: rotate(var(--tilt, -1deg)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
 }
 
 /* ---------- cinema overlay ----------
