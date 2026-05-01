@@ -147,20 +147,29 @@ a { color: inherit; text-decoration: none; }
 }
 
 .brand {
-  display: flex; align-items: baseline; gap: 0.5rem;
+  display: flex; align-items: center; gap: 0.55rem;
   font-family: var(--hand);
   font-weight: 400;
-  font-size: 1.4rem;
-  letter-spacing: 0.08em;
+  font-size: 1.2rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
+.brand-fff {
+  height: 2em;
+  width: auto;
+  display: block;
+  /* invert to white-on-dark (the source PNG already is white-on-transparent, this is just safe) */
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,0.3));
+}
 .brand-mark { color: var(--melon); font-size: 0.7rem; transform: translateY(-1px); }
+@media (max-width: 700px) {
+  .brand-fff { height: 1.7em; }
+}
 
 .nav-links {
   display: flex; gap: 1.8rem;
   font-size: 0.78rem;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: var(--white-mute);
 }
 .nav-links a:hover { color: var(--melon); }
@@ -327,7 +336,6 @@ a { color: inherit; text-decoration: none; }
   padding: 0.95rem 2rem;
   font-size: 0.78rem;
   letter-spacing: 0.22em;
-  text-transform: uppercase;
   font-weight: 500;
   border-radius: 2px;
   transition: all 0.25s ease;
@@ -391,7 +399,6 @@ a { color: inherit; text-decoration: none; }
 .teaser-eyebrow {
   font-size: 0.72rem;
   letter-spacing: 0.32em;
-  text-transform: uppercase;
   color: var(--bone);
   margin-bottom: 1.2rem;
 }
@@ -555,7 +562,6 @@ a { color: inherit; text-decoration: none; }
 .film-card-action {
   font-size: 0.72rem;
   letter-spacing: 0.32em;
-  text-transform: uppercase;
   color: var(--bone);
   padding: 0.7rem 1.4rem;
   border: 1px solid var(--bone);
@@ -572,7 +578,6 @@ a { color: inherit; text-decoration: none; }
   color: var(--bone);
   font-size: 0.68rem;
   letter-spacing: 0.22em;
-  text-transform: uppercase;
   border: 1px solid var(--bone);
   border-radius: 2px;
   z-index: 2;
@@ -600,7 +605,6 @@ a { color: inherit; text-decoration: none; }
 }
 .film-credits-row .role {
   color: #8a7e5e;
-  text-transform: uppercase;
   font-size: 0.62rem;
   letter-spacing: 0.22em;
   padding-top: 0.2rem;
@@ -649,7 +653,6 @@ a { color: inherit; text-decoration: none; }
 .studio-label {
   font-size: 0.66rem;
   letter-spacing: 0.32em;
-  text-transform: uppercase;
   color: var(--bone-mute);
   margin-bottom: 0.4rem;
 }
@@ -670,7 +673,6 @@ a { color: inherit; text-decoration: none; }
 .studio-people {
   font-size: 0.82rem;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--white-mute);
   margin-top: 0.4rem;
 }
@@ -693,7 +695,6 @@ a { color: inherit; text-decoration: none; }
   display: flex; justify-content: space-between;
   font-size: 0.72rem;
   letter-spacing: 0.16em;
-  text-transform: uppercase;
   color: var(--white-mute);
   border-top: 1px solid var(--line);
 }
@@ -745,7 +746,6 @@ a { color: inherit; text-decoration: none; }
 .detail-credits {
   font-size: 0.8rem;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: var(--bone);
   margin-bottom: 2.5rem;
 }
@@ -792,7 +792,6 @@ a { color: inherit; text-decoration: none; }
 .detail-buy-row .term {
   font-size: 0.72rem;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: var(--white-mute);
 }
 
@@ -803,7 +802,6 @@ a { color: inherit; text-decoration: none; }
   padding: 0.95rem 1.2rem;
   font-size: 0.78rem;
   letter-spacing: 0.22em;
-  text-transform: uppercase;
   font-weight: 500;
   border-radius: 2px;
   cursor: pointer;
@@ -1086,7 +1084,6 @@ html::after {
   color: var(--bone);
   pointer-events: none;
   font-variant-numeric: tabular-nums;
-  text-transform: uppercase;
   mix-blend-mode: difference;
   opacity: 0.6;
 }
@@ -1190,7 +1187,6 @@ html::after {
 .help-eyebrow {
   font-size: 0.72rem;
   letter-spacing: 0.32em;
-  text-transform: uppercase;
   color: var(--bone);
   margin-bottom: 1.2rem;
 }
@@ -1211,7 +1207,6 @@ html::after {
   font-weight: 500;
   font-size: 0.74rem;
   letter-spacing: 0.28em;
-  text-transform: uppercase;
   color: var(--bone-mute);
   margin-bottom: 1rem;
 }
@@ -1282,7 +1277,6 @@ html::after {
 .nf-eyebrow {
   font-size: 0.66rem;
   letter-spacing: 0.36em;
-  text-transform: uppercase;
   color: var(--bone);
   margin-bottom: 1.5rem;
 }
