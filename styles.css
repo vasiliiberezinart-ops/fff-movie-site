@@ -49,7 +49,13 @@ html, body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
+html { overscroll-behavior-y: contain; }
+button, a, input { -webkit-tap-highlight-color: transparent; }
+input, textarea, select { font-size: 16px; }   /* prevent iOS auto-zoom */
 
 /* ---------- filmstrip scroll-snap ----------
    Each top-level section becomes one "frame" of a filmstrip:
@@ -939,9 +945,26 @@ a { color: inherit; text-decoration: none; }
   .nav { padding: 0.8rem 1rem; }
   .nav-links a { font-size: 0.6rem; letter-spacing: 0.16em; }
   .brand { font-size: 0.95rem; }
+  .brand-fff { height: 1.5em; }
   .hero-title { font-size: clamp(1.4rem, 7vw, 2rem); }
   .teaser-title { font-size: clamp(1.7rem, 8vw, 2.4rem); }
   .film-credits-row .role { min-width: 4.6rem; font-size: 0.58rem; }
+}
+
+/* low-end mobiles: drop heaviest effects to keep 60fps */
+@media (max-width: 700px) {
+  /* chromatic aberration ghosts cost a paint per char × scroll → reduce on phone */
+  .hero-title .ch::before, .hero-title .ch::after { display: none; }
+  /* hero-mesh blur is the heaviest filter — already trimmed; on hover-less devices reduce more */
+  .hero-mesh { animation-duration: 22s; opacity: 0.38; }
+  /* film-grain layers — keep, they're cheap */
+}
+
+/* additional tap-target padding for thumb zones */
+@media (pointer: coarse) {
+  .nav-links a { padding: 0.4rem 0.2rem; }
+  .pay-buttons a { min-height: 52px; }
+  .cta-primary, .cta-ghost { min-height: 52px; padding: 1rem 2rem; }
 }
 
 /* hover-only effects → disable on touch */
