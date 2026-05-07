@@ -13,7 +13,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="home">
@@ -37,7 +37,7 @@
 </header>
 
 <section class="hero hero-cinema">
-  <video class="hero-video" autoplay muted loop playsinline poster="assets/posters/hero-still.jpg">
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/posters/hero-still.jpg">
     <source src="assets/raw/hero-trailer.mp4" type="video/mp4" />
   </video>
   <div class="hero-mesh" aria-hidden="true"></div>
@@ -97,7 +97,7 @@
 
     <div class="about-studio">
       <p class="studio-label">студия</p>
-      <img class="studio-logo" src="assets/brand/films-freedom-friends-small.png" alt="Films Freedom Friends" />
+      <img class="studio-logo" src="assets/brand/films-freedom-friends-small.png" alt="Films Freedom Friends" loading="lazy" decoding="async" />
       <p class="studio-people">Дима Масейкин — режиссёр студии</p>
       <p class="studio-blurb">
         <!-- TODO: 1-2 строки от Васи о студии -->
