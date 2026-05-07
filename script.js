@@ -39,11 +39,12 @@ document.addEventListener("DOMContentLoaded", () => {
       leader.remove();
     } else {
       const flash = document.getElementById("leaderFlash");
-      setTimeout(() => flash.classList.add("fire"), 1450);
+      // hit at ~1.13s (clap-snap end), fade leader at ~1.95s
+      setTimeout(() => flash.classList.add("fire"), 1130);
       setTimeout(() => {
         leader.classList.add("gone");
         setTimeout(() => leader.remove(), 500);
-      }, 1750);
+      }, 1980);
       sessionStorage.setItem("seenLeader", "1");
     }
   }
