@@ -147,13 +147,14 @@ a { color: inherit; text-decoration: none; }
 }
 
 .brand {
-  display: flex; align-items: center; gap: 0.55rem;
+  display: flex; align-items: center; gap: 0.4rem;
   font-family: var(--hand);
   font-weight: 400;
-  font-size: 1.2rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+  font-style: italic;
 }
+.brand-name { font-style: italic; }
 .brand-fff {
   height: 2em;
   width: auto;
